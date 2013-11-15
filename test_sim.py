@@ -8,16 +8,16 @@ from vector import Vector
 def generate_test_scene():
     test_arena = Arena(10, 10)
     for i in range(10):
-        test_arena[0, i].contents = Block('#0000FF')
-        test_arena[9, i].contents = Block('#FF0000')
-        test_arena[i, 0].contents = Block('#FFFF00')
-        test_arena[i, 9].contents = Block('#00FF00')
-    test_arena[9, 5].contents = Block('#FFFFFF')
-    test_arena[5, 0].contents = Block('#FFFFFF')
-    test_arena[0, 5].contents = Block('#FFFFFF')
-    test_arena[5, 9].contents = Block('#FFFFFF')
+        test_arena[0, i].contents = Block((0,0,255))
+        test_arena[9, i].contents = Block((0,255,0))
+        test_arena[i, 0].contents = Block((255,0,0))
+        test_arena[i, 9].contents = Block((255,255,0))
+    test_arena[9, 5].contents = Block((255,255,255))
+    test_arena[5, 0].contents = Block((255,255,255))
+    test_arena[0, 5].contents = Block((255,255,255))
+    test_arena[5, 9].contents = Block((255,255,255))
 
-    test_arena[7, 6].contents = Block('#00FFFF')
+    test_arena[7, 6].contents = Block((0,255,255))
     return test_arena
 
 
