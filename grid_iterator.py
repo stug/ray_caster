@@ -3,6 +3,17 @@ import math
 
 
 class Vector(object):
+
+    @classmethod
+    def build_with_basis(
+    	cls,
+    	parallel_component,
+    	perpendicular_component,
+    	parallel_vector,
+    	perpendicular_vector
+    ):
+        return parallel_vector * parallel_component + perpendicular_vector * perpendicular_component
+
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -15,6 +26,7 @@ class Vector(object):
 
 
 class GridIterator(object):
+
     def __init__(self, position, direction):
         self.current_position = position
         self.direction = direction
@@ -24,11 +36,21 @@ class GridIterator(object):
             yield self._get_next_grid_intersection()
 
     def _get_next_grid_intersection(self):
-        vertical_intersection_dist = self._get_dist_to_next_whole_number(self.current_position.x)
-        horizontal_intersection_dist = self._get_dist_to_next_whole_number(self.current_position.y)
+        vertical_intersection_dist = self._get_dist_to_next_whole_number(
+            self.current_position.x
+        )
+        horizontal_intersection_dist = self._get_dist_to_next_whole_number(
+            self.current_position.y
+        )
         amount_to_advance = min(
-            self._divide_safely(vertical_intersection_dist, self.direction.x),
-            self._divide_safely(horizontal_intersection_dist, self.direction.y)
+            self._divide_safely(
+                vertical_intersection_dist,
+                self.direction.x
+            ),
+            self._divide_safely(
+                horizontal_intersection_dist,
+                self.direction.y
+            )
         )
         self.current_position += self.direction * amount_to_advance
         return self.current_position
