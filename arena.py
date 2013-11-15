@@ -2,7 +2,7 @@ class Block(object):
 
     height = 1
 
-    def __init__(self, height, color=None):
+    def __init__(self, color=None):
         self.color = color
 
     def build_slice(self, screen_height, distance, face, position_on_face):
@@ -11,9 +11,10 @@ class Block(object):
         """
         # TODO: this is gross but fine for now.
         num_filled_pixels = screen_height/distance
+        pixel_fill_start = int((screen_height - num_filled_pixels)/2)
         pixel_slice = [0]*screen_height
-        for i in range(num_filled_pixels):
-            pixel_slice[i] = 1
+        for i in range(int(num_filled_pixels)):
+            pixel_slice[pixel_fill_start + i] = 1
         return pixel_slice
 
 
@@ -24,7 +25,7 @@ class Square(object):
 
     @property
     def is_occupied(self):
-        self.contents is not None
+        return self.contents is not None
 
 
 class OutOfBoundsError(Exception): pass

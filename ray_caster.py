@@ -14,10 +14,8 @@ class RayCaster(object):
         self.position = position
 
     def cast_ray(self, direction):
-        print self.position, direction
         for potential_intersection in GridIterator(self.position, direction):
-            print potential_intersection
-            print self._get_coordinates_to_check(potential_intersection, direction)
+            coords =  self._get_coordinates_to_check(potential_intersection, direction)
             square = self.arena[self._get_coordinates_to_check(potential_intersection, direction)]
             if square.is_occupied:
                 return FoundBlock(square.contents, potential_intersection)

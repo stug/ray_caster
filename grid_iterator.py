@@ -42,32 +42,33 @@ class GridIterator(object):
             yield self._get_next_grid_intersection()
 
     def _get_next_grid_intersection(self):
-        import ipdb; ipdb.set_trace()
         vertical_intersection_dist = self._get_dist_to_next_whole_number(
-            self.current_position.x
+            self.current_position.x,
+            self.direction.x
         )
         horizontal_intersection_dist = self._get_dist_to_next_whole_number(
-            self.current_position.y
+            self.current_position.y,
+            self.direction.y
         )
         amount_to_advance = min(
-            self._divide_safely(
+            math.fabs(self._divide_safely(
                 vertical_intersection_dist,
                 self.direction.x
-            ),
-            self._divide_safely(
+            )),
+            math.fabs(self._divide_safely(
                 horizontal_intersection_dist,
                 self.direction.y
-            )
+            ))
         )
         self.current_position += self.direction * amount_to_advance
         return self.current_position
 
-    @staticmethod
-    def _get_dist_to_next_whole_number(current_coord):
+    def _get_dist_to_next_whole_number(self, current_coord, magnitude_of_direction):
         """Important that, if we're at a current whole number, we get the next
         whole number rather than just returning the current position.
         """
-        return math.ceil(current_coord) - current_coord or 1.0
+        rounding_function = math.ceil if magnitude_of_direction > 0 else math.floor
+        return rounding_function(current_coord) - current_coord or 1.0
 
     @staticmethod
     def _divide_safely(numerator, denominator):

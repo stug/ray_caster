@@ -45,7 +45,7 @@ class Painter(object):
             )
             yield found_block.block.build_slice(
                 self.frame_height,
-                self.position.find_distance_from_vector(found_block.intersection),
+                position.find_distance_from_vector(found_block.intersection),
                 face=None,
                 position_on_face=None
             )

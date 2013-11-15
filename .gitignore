@@ -3,3 +3,4 @@ ENV
 
 # pyc's
 *.pyc
+.ropeproject
