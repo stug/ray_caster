@@ -49,9 +49,11 @@ class Dude(object):
 
     def forward(self):
         self.position += self.direction * 0.1
+        print self.position
 
     def backward(self):
         self.position -= self.direction * 0.1
+        print self.position
 
     def rotate_left(self):
         self._rotate(math.pi/100)
