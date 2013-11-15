@@ -11,7 +11,7 @@ def generate_test_scene():
         test_arena[9, i].contents = 1
         test_arena[i, 0].contents = 1
         test_arena[i, 9].contents = 1
-    test_arena[8, 7] = 1
+    test_arena[8, 7].contents = 1
 
     painter = Painter(test_arena, 200, 200, math.pi/3.0)
     test_scene = []
