@@ -5,11 +5,11 @@ class Vector(object):
 
     @classmethod
     def build_with_basis(
-    cls,
-    parallel_component,
-    perpendicular_component,
-    parallel_vector,
-    perpendicular_vector
+        cls,
+        parallel_component,
+        perpendicular_component,
+        parallel_vector,
+        perpendicular_vector
     ):
         return parallel_vector * parallel_component + perpendicular_vector * perpendicular_component
 
