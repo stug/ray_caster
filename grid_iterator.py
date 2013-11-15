@@ -24,6 +24,9 @@ class Vector(object):
     def __add__(self, other_vector):
         return type(self)(other_vector.x + self.x, other_vector.y + self.y)
 
+    def find_distance_from_vector(self, other_vector):
+        return math.sqrt((other_vector.x - self.x)**2 + (other_vector.y - self.y)**2)
+
 
 class GridIterator(object):
 

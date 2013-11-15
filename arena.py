@@ -1,11 +1,20 @@
 class Block(object):
 
+    height = 1
+
     def __init__(self, height, color=None):
-        self.height = height
         self.color = color
 
-    def build_slice(self, ):
-        pass
+    def build_slice(self, screen_height, distance, face, position_on_face):
+        """Eventually we'll want to have texture and will need face, and position_on_face.
+        For now we're ignoring them.
+        """
+        # TODO: this is gross but fine for now.
+        num_filled_pixels = screen_height/distance
+        pixel_slice = [0]*screen_height
+        for i in range(num_filled_pixels):
+            pixel_slice[i] = 1
+        return pixel_slice
 
 
 class Square(object):
