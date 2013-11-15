@@ -15,12 +15,12 @@ class RayGenerator(object):
     def __iter__(self):
         for i in range(self.number_of_steps):
             yield (
-                (float(i) - (self.number_of_steps/2)) * self.perpendicular_step,
-                self.parallel_component
+                self.parallel_component,
+                (float(i) - (self.number_of_steps/2)) * self.perpendicular_step
             )
 
 
-class Painter(object):
+class SliceGenerator(object):
 
     def __init__(self, arena, frame_width=200, frame_height=200, fov_angle=math.pi/3.0):
         self.frame_width = frame_width
@@ -45,7 +45,7 @@ class Painter(object):
             )
             yield found_block.block.build_slice(
                 self.frame_height,
-                position.find_distance_from_vector(found_block.intersection),
+                position.find_distance_along_vector(found_block.intersection, direction),
                 face=None,
                 position_on_face=None
             )

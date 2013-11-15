@@ -1,5 +1,5 @@
 import Tkinter
-from painter import Painter
+from slice_generator import SliceGenerator
 from grid_iterator import Vector
 
 from test_sim import generate_test_scene
@@ -27,12 +27,12 @@ class SceneDrawer(object):
     def __init__(self, pixel_drawer, arena):
         self.pixel_drawer = pixel_drawer
         self.arena = arena
-        self.slice_generator = Painter(arena)
+        self.slice_generator = SliceGenerator(arena)
 
     def draw_scene(self, direction):
         for x, pixel_slice in enumerate(
             self.slice_generator.generate_slices(
-                Vector(8, 5),
+                Vector(5, 5),
                 direction
             )
         ):
@@ -52,5 +52,5 @@ if __name__ == '__main__':
     t = 0.0
     while True:
         t += .05
-        sd.draw_scene(Vector(1, 0) + Vector(math.sin(t), math.cos(t)))
+        sd.draw_scene(Vector(1, 1))
         import ipdb; ipdb.set_trace()

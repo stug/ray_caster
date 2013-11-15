@@ -8,11 +8,16 @@ from painter import Painter
 def generate_test_scene():
     test_arena = Arena(10, 10)
     for i in range(10):
-        test_arena[0, i].contents = Block()
-        test_arena[9, i].contents = Block()
-        test_arena[i, 0].contents = Block()
-        test_arena[i, 9].contents = Block()
-    test_arena[8, 7].contents = Block()
+        test_arena[0, i].contents = Block('#0000FF')
+        test_arena[9, i].contents = Block('#FF0000')
+        test_arena[i, 0].contents = Block('#FFFF00')
+        test_arena[i, 9].contents = Block('#00FF00')
+    test_arena[9, 5].contents = Block('#FFFFFF')
+    test_arena[5, 0].contents = Block('#FFFFFF')
+    test_arena[0, 5].contents = Block('#FFFFFF')
+    test_arena[5, 9].contents = Block('#FFFFFF')
+
+    test_arena[7, 6].contents = Block('#00FFFF')
     return test_arena
 
 
