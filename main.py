@@ -18,6 +18,9 @@ class TkinterPixelDrawer(object):
 
     __setitem__ = write_pixel
 
+    def clear(self):
+        self.canvas.delete(Tkinter.ALL)
+
 
 class SceneDrawer(object):
 
@@ -26,11 +29,11 @@ class SceneDrawer(object):
         self.arena = arena
         self.slice_generator = Painter(arena)
 
-    def draw_scene(self):
+    def draw_scene(self, direction):
         for x, pixel_slice in enumerate(
             self.slice_generator.generate_slices(
-                Vector(1, 5),
-                Vector(2, 1)
+                Vector(8, 5),
+                direction
             )
         ):
             for y, pixel in enumerate(pixel_slice):
@@ -43,7 +46,11 @@ if __name__ == '__main__':
     pd = TkinterPixelDrawer(
         Tkinter.Canvas(top, height=1000, width=1000, background='black')
     )
-    SceneDrawer(pd, generate_test_scene()).draw_scene()
-    import ipdb; ipdb.set_trace()
-    print 4
-    
+    sd = SceneDrawer(pd, generate_test_scene())
+    import time
+    import math
+    t = 0.0
+    while True:
+        t += .05
+        sd.draw_scene(Vector(1, 0) + Vector(math.sin(t), math.cos(t)))
+        import ipdb; ipdb.set_trace()
