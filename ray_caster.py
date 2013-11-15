@@ -5,7 +5,7 @@ import arena
 import grid_iterator
 
 
-FoundBlock = namedtuple('FoundBlock', ['black', 'intersection'])
+FoundBlock = namedtuple('FoundBlock', ['block', 'intersection'])
 
 
 class RayCaster(object):
