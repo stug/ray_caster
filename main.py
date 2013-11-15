@@ -1,25 +1,44 @@
 import Tkinter
+#from painter import Painter
+#from grid_iterator import Vector
 
 
-class Game(object):
-    def __init__(self):
-        self.top = Tkinter.Tk()
-        self.canvas = Tkinter.Canvas(self.top, height=500, width=500, background='black')
-        # self.thing = self.canvas.create_rectangle(50, 50, 100, 100, outline='blue')
-        self.canvas.pack()
+class TkinterPixelDrawer(object):
 
-        self.counter = 0
-        self.top.after(10, self.animate)
-        self.top.mainloop()
+    def __init__(self, canvas):
+        self.canvas = canvas
 
-    def animate(self):
-        pass
-        # self.canvas.move(self.thing, 1, 1)
-        # self.canvas.update()
-        # self.counter += 1
-        # if self.counter < 400:
-        #    self.top.after(10, self.animate())
+    def write_pixel(self, (x, y), fill):
+        x = x*4
+        y = y*4
+        return self.canvas.create_rectangle(x, y, x+3, y+3, fill=fill)
+
+    __setitem__ = write_pixel
+
+
+class SceneDrawer(object):
+
+    def __init__(self, pixel_drawer, arena):
+        self.pixel_drawer = pixel_drawer
+        self.arena = arena
+        self.slice_generator = Painter(arena)
+
+    def draw_scene(self):
+        for y, pixel_slice in enumerate(
+            slice_generator.generate_slices(
+                Vector(1, 1),
+                Vector(2, 1)
+            )
+        ):
+            for x, pixel in enumerate(pixel_slice):
+                if pixel:
+                    self.pixel_drawer.write_pixel((x, y), '#FFFFFF')
 
 
 if __name__ == '__main__':
-    game = Game()
+    top = Tkinter.Tk()
+    pd = TkinterPixelDrawer(
+        Tkinter.Canvas(top, height=500, width=500, background='black')
+    )
+    import ipdb; ipdb.set_trace()
+    print 2

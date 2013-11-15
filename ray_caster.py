@@ -5,7 +5,7 @@ import arena
 import grid_iterator
 
 
-FoundBlock = namedtuple('FoundBlock' ['black', 'intersection'])
+FoundBlock = namedtuple('FoundBlock', ['black', 'intersection'])
 
 
 class RayCaster(object):
@@ -23,7 +23,7 @@ class RayCaster(object):
     @staticmethod
     def _get_coordinates_to_check(potential_intersection, direction):
         return (
-            self._get_index_to_check(potential_intersection.x, direction.x)
+            self._get_index_to_check(potential_intersection.x, direction.x),
             self._get_index_to_check(potential_intersection.y, direction.y)
         )
 

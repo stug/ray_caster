@@ -15,7 +15,7 @@ class RayGenerator(object):
     def __iter__(self):
         for i in range(self.number_of_steps):
             yield (
-                (float(i)-(number_of_steps/2)) * self.perpendicular_step
+                (float(i)-(number_of_steps/2)) * self.perpendicular_step,
                 self.parallel_component
             )
 
