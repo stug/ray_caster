@@ -1,6 +1,6 @@
 import Tkinter
 from slice_generator import SliceGenerator
-from grid_iterator import Vector
+from vector import Vector
 
 from test_sim import generate_test_scene
 

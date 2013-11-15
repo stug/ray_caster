@@ -2,8 +2,8 @@ import math
 
 from arena import Arena
 from arena import Block
-from grid_iterator import Vector
-from painter import Painter
+from slice_generator import SliceGenerator
+from vector import Vector
 
 def generate_test_scene():
     test_arena = Arena(10, 10)
@@ -34,4 +34,4 @@ def generate_test_scene():
 
 if __name__ == '__main__':
     print generate_test_scene()
-    
+

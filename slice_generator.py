@@ -1,7 +1,7 @@
 import math
 
-from grid_iterator import Vector
 from ray_caster import RayCaster
+from vector import Vector
 
 
 class RayGenerator(object):
