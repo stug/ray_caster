@@ -1,3 +1,5 @@
+import math
+
 import pygame
 
 from slice_generator import SliceGenerator
@@ -15,6 +17,9 @@ class PyGamePixelDrawer(object):
         self.screen.set_at((x,y), fill)
 
     __setitem__ = write_pixel
+
+    def clear(self):
+        self.screen.fill((0,0,0))
 
 
 class SceneDrawer(object):
@@ -42,11 +47,13 @@ if __name__ == '__main__':
     pd = PyGamePixelDrawer(screen)
     sd = SceneDrawer(pd, generate_test_scene())
     running = True
+    t = 0
     while running:
-        sd.draw_scene(Vector(1, 1))
-        print "drew scene"
+        pd.clear()
+        sd.draw_scene(Vector(math.sin(t), math.cos(t)))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
         pygame.display.flip()
         clock.tick(1000)
+        t += math.pi/100.0
