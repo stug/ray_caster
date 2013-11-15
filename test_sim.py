@@ -13,6 +13,7 @@ def generate_test_scene():
         test_arena[i, 0].contents = Block()
         test_arena[i, 9].contents = Block()
     test_arena[8, 7].contents = 1
+    return test_arena
 
 
     painter = Painter(test_arena, 200, 200, math.pi/3.0)

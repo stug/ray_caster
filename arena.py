@@ -10,7 +10,7 @@ class Block(object):
         For now we're ignoring them.
         """
         # TODO: this is gross but fine for now.
-        num_filled_pixels = screen_height/distance
+        num_filled_pixels = screen_height/(2*distance)
         pixel_fill_start = int((screen_height - num_filled_pixels)/2)
         pixel_slice = [0]*screen_height
         for i in range(int(num_filled_pixels)):
