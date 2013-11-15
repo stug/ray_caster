@@ -10,12 +10,12 @@ class RayGenerator(object):
         self.number_of_steps = number_of_steps
         self.fov_angle = fov_angle
         self.parallel_component = math.cos(fov_angle)
-        self.perpendicular_step = math.sine(fov_angle)/(number_of_steps/2)
+        self.perpendicular_step = math.sin(fov_angle)/(number_of_steps/2)
 
     def __iter__(self):
         for i in range(self.number_of_steps):
             yield (
-                (float(i) - (number_of_steps/2)) * self.perpendicular_step,
+                (float(i) - (self.number_of_steps/2)) * self.perpendicular_step,
                 self.parallel_component
             )
 

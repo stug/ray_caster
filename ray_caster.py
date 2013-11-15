@@ -1,8 +1,7 @@
 from collections import namedtuple
 import math
 
-import arena
-import grid_iterator
+from grid_iterator import GridIterator
 
 
 FoundBlock = namedtuple('FoundBlock', ['block', 'intersection'])
@@ -15,16 +14,19 @@ class RayCaster(object):
         self.position = position
 
     def cast_ray(self, direction):
+        print self.position, direction
         for potential_intersection in GridIterator(self.position, direction):
-            square = arena[self._get_coordinates_to_check(potential_intersection, direction)]
+            print potential_intersection
+            print self._get_coordinates_to_check(potential_intersection, direction)
+            square = self.arena[self._get_coordinates_to_check(potential_intersection, direction)]
             if square.is_occupied:
                 return FoundBlock(square.contents, potential_intersection)
 
     @staticmethod
     def _get_coordinates_to_check(potential_intersection, direction):
         return (
-            self._get_index_to_check(potential_intersection.x, direction.x),
-            self._get_index_to_check(potential_intersection.y, direction.y)
+            int(RayCaster._get_index_to_check(potential_intersection.x, direction.x)),
+            int(RayCaster._get_index_to_check(potential_intersection.y, direction.y))
         )
 
     @staticmethod
