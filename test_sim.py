@@ -12,7 +12,7 @@ def generate_test_scene():
         test_arena[9, i].contents = Block()
         test_arena[i, 0].contents = Block()
         test_arena[i, 9].contents = Block()
-    test_arena[8, 7].contents = 1
+    test_arena[8, 7].contents = Block()
     return test_arena
 
 
