@@ -24,7 +24,7 @@ class TkinterPixelDrawer(object):
 
 class SceneDrawer(object):
 
-
+    def __init__(self, pixel_drawer, arena):
         self.pixel_drawer = pixel_drawer
         self.arena = arena
         self.slice_generator = Painter(arena)
