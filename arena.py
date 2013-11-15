@@ -1,9 +1,12 @@
+import random
+
+
 class Block(object):
 
     height = 1
 
     def __init__(self, color=None):
-        self.color = color
+        self.color = color or Block._get_random_color()
 
     def build_slice(self, screen_height, distance, face, position_on_face):
         """Eventually we'll want to have texture and will need face, and position_on_face.
@@ -12,10 +15,14 @@ class Block(object):
         # TODO: this is gross but fine for now.
         num_filled_pixels = screen_height/(2*distance)
         pixel_fill_start = int((screen_height - num_filled_pixels)/2)
-        pixel_slice = [0]*screen_height
+        pixel_slice = [None]*screen_height
         for i in range(int(num_filled_pixels)):
-            pixel_slice[pixel_fill_start + i] = 1
+            pixel_slice[pixel_fill_start + i] = self.color
         return pixel_slice
+
+    @staticmethod
+    def _get_random_color():
+        return hex(random.randint(0, 2**24 - 1)).replace('0x', '#')
 
 
 class Square(object):

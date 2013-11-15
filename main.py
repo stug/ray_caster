@@ -24,7 +24,7 @@ class TkinterPixelDrawer(object):
 
 class SceneDrawer(object):
 
-    def __init__(self, pixel_drawer, arena):
+
         self.pixel_drawer = pixel_drawer
         self.arena = arena
         self.slice_generator = Painter(arena)
@@ -38,7 +38,7 @@ class SceneDrawer(object):
         ):
             for y, pixel in enumerate(pixel_slice):
                 if pixel:
-                    self.pixel_drawer.write_pixel((x, y), '#FFFFFF')
+                    self.pixel_drawer.write_pixel((x, y), pixel)
 
 
 if __name__ == '__main__':
