@@ -5,7 +5,7 @@ import pygame
 from slice_generator import SliceGenerator
 from vector import Vector
 
-from test_sim import generate_test_scene
+from test_arena import test_arena
 
 
 class PyGamePixelDrawer(object):
@@ -43,23 +43,27 @@ class SceneDrawer(object):
 
 class Dude(object):
 
-    def __init__(self, position=Vector(5,5), angle=0):
+    def __init__(self, position=Vector(5,5), angle=0, step_size=0.1, rotation_step_size=math.pi/80):
         self.angle = angle
         self.position = position
+        self.step_size = step_size
+        self.rotation_step_size = rotation_step_size
 
     def forward(self):
-        self.position += self.direction * 0.1
-        print self.position
+        self._walk(self.step_size)
 
     def backward(self):
-        self.position -= self.direction * 0.1
+        self._walk(-self.step_size)
+
+    def _walk(self, distance):
+        self.position += self.direction * distance
         print self.position
 
     def rotate_left(self):
-        self._rotate(math.pi/100)
+        self._rotate(self.rotation_step_size)
 
     def rotate_right(self):
-        self._rotate(-math.pi/100)
+        self._rotate(-self.rotation_step_size)
 
     def _rotate(self, amount):
         self.angle += amount
@@ -73,7 +77,7 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((200, 200))
     clock = pygame.time.Clock()
     pd = PyGamePixelDrawer(screen)
-    sd = SceneDrawer(pd, generate_test_scene())
+    sd = SceneDrawer(pd, test_arena)
     dude = Dude()
     running = True
     t = 0
