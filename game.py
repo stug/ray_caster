@@ -2,46 +2,12 @@ import math
 
 import pygame
 
-from slice_generator import SliceGenerator
+import scene_drawer
+from test_arena import test_arena
 from vector import Vector
 
-from test_arena import test_arena
 
-
-class PyGamePixelDrawer(object):
-
-    def __init__(self, screen):
-        self.screen = screen
-
-    def write_pixel(self, (x, y), fill):
-        self.screen.set_at((x,y), fill)
-
-    __setitem__ = write_pixel
-
-    def clear(self):
-        self.screen.fill((0,0,0))
-
-
-class SceneDrawer(object):
-
-    def __init__(self, pixel_drawer, arena):
-        self.pixel_drawer = pixel_drawer
-        self.arena = arena
-        self.slice_generator = SliceGenerator(arena)
-
-    def draw_scene(self, position, direction):
-        for x, pixel_slice in enumerate(
-            self.slice_generator.generate_slices(
-                position,
-                direction
-            )
-        ):
-            for y, pixel in enumerate(pixel_slice):
-                if pixel:
-                    self.pixel_drawer.write_pixel((x, y), pixel)
-
-
-class Dude(object):
+class Player(object):
 
     def __init__(self, position=Vector(5,5), angle=0, step_size=0.1, rotation_step_size=math.pi/80):
         self.angle = angle
@@ -73,29 +39,43 @@ class Dude(object):
         return Vector(math.cos(self.angle), math.sin(self.angle))
 
 
-if __name__ == '__main__':
-    screen = pygame.display.set_mode((200, 200))
-    clock = pygame.time.Clock()
-    pd = PyGamePixelDrawer(screen)
-    sd = SceneDrawer(pd, test_arena)
-    dude = Dude()
-    running = True
-    t = 0
-    while running:
-        pd.clear()
-        sd.draw_scene(dude.position, dude.direction)
+class Game(object):
+
+    def __init__(self, horizontal_resolution=200, vertical_resolution=200):
+        screen = pygame.display.set_mode((horizontal_resolution, vertical_resolution))
+
+        # TODO: scene drawer should probably entirely encapsulate pixel_drawer?
+        self.pixel_drawer = scene_drawer.PyGamePixelDrawer(screen)
+        self.scene_drawer = scene_drawer.SceneDrawer(self.pixel_drawer, test_arena)
+        self.player = Player()
+
+    def run(self):
+        while self._should_continue():
+            self.pixel_drawer.clear()
+            self.scene_drawer.draw_scene(self.player.position, self.player.direction)
+            pygame.display.flip()
+            self._check_for_keys()
+
+    def _check_for_keys(self):
+        # TODO: add key to action map
+        # also, should Dude handle his own movement?
         keys_pressed = pygame.key.get_pressed()
         if keys_pressed[pygame.K_w]:
-            dude.forward()
+            self.player.forward()
         if keys_pressed[pygame.K_s]:
-            dude.backward()
+            self.player.backward()
         if keys_pressed[pygame.K_a]:
-            dude.rotate_left()
+            self.player.rotate_left()
         if keys_pressed[pygame.K_d]:
-            dude.rotate_right()
+            self.player.rotate_right()
+
+    def _should_continue(self):
+        should_continue = True
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
-        pygame.display.flip()
-        clock.tick(1000)
-        t += math.pi/100.0
+                should_continue = False
+        return should_continue
+
+
+if __name__ == '__main__':
+    Game().run()
