@@ -42,9 +42,10 @@ class Player(object):
 class Game(object):
 
     def __init__(self, horizontal_resolution=200, vertical_resolution=200):
-        screen = pygame.display.set_mode((horizontal_resolution, vertical_resolution))
-
         # TODO: scene drawer should probably entirely encapsulate pixel_drawer?
+        # Additionally, scene_drawer (or even pixel_drawer) should instantiate
+        # the screen
+        screen = pygame.display.set_mode((horizontal_resolution, vertical_resolution))
         self.pixel_drawer = scene_drawer.PyGamePixelDrawer(screen)
         self.scene_drawer = scene_drawer.SceneDrawer(self.pixel_drawer, test_arena)
         self.player = Player()
@@ -57,7 +58,7 @@ class Game(object):
             self._check_for_keys()
 
     def _check_for_keys(self):
-        # TODO: add key to action map
+        # TODO: add key to action map instead of if-statement nonsense
         # also, should Dude handle his own movement?
         keys_pressed = pygame.key.get_pressed()
         if keys_pressed[pygame.K_w]:
