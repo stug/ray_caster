@@ -15,7 +15,6 @@ class RayCaster(object):
 
     def cast_ray(self, direction):
         for potential_intersection in GridIterator(self.position, direction):
-            coords =  self._get_coordinates_to_check(potential_intersection, direction)
             square = self.arena[self._get_coordinates_to_check(potential_intersection, direction)]
             if square.is_occupied:
                 return FoundBlock(square.contents, potential_intersection)
